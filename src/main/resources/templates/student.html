@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Page</title>
+</head>
+<body>
+<h2>Student Page</h2>
+
+<!--<div th:replace="base :: nav"></div>-->
+
+<div class="container">
+    <!--insert webpage content here-->
+    <div sec:authorize="hasAuthority('ADMIN')">
+        Administrators will see this text. You can display a navbar here.
+    </div>
+
+    <div sec:authorize="hasAuthority('USER')">
+        Users will see this text. You can display a navbar here.
+    </div>
+</div>
+
+
+</body>
+</html>
