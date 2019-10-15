@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import org.hibernate.annotations.Fetch;
+//import org.hibernate.annotations.Fetch;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //import javax.management.relation.Role;

@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -15,7 +15,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
-    public static BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
@@ -25,10 +25,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public UserDetailsService userDetailsServiceBean() throws Exception {
-        return new SSUserDetailsService(userRepository);
-    }
+    // not needed for 4.05?
+//    @Override
+//    public UserDetailsService userDetailsServiceBean() throws Exception {
+//        return new SSUserDetailsService(userRepository);
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -38,16 +39,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .access("hasAnyAuthority('USER','ADMIN')")
 //                .anyRequest().authenticated()
 
+                .antMatchers("/admin")
+                .access("hasAuthority('ADMIN')")
+//                .anyRequest().authenticated()
+
                 .antMatchers("/course")
                 .access("hasAnyAuthority('USER','ADMIN')")
 //                .anyRequest().authenticated()
 
                 .antMatchers("/student")
                 .access("hasAuthority('USER')")
-//                .anyRequest().authenticated()
-
-                .antMatchers("/admin")
-                .access("hasAuthority('ADMIN')")
 //                .anyRequest().authenticated()
 
                 .antMatchers("/teacher")
@@ -69,9 +70,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
         throws Exception{
-        // does not work
+        // for use with database does not work
 //        auth.userDetailsService(userDetailsServiceBean())
 //                .passwordEncoder(passwordEncoder());
+       auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 
 // for use with h2 - this works
         auth.inMemoryAuthentication()
