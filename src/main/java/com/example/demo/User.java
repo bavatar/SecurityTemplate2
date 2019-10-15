@@ -38,7 +38,6 @@ public class User{
     private Collection<Role> roles;
 
     public User() {
-
     }
 
     public User(String email, String password, String firstName, String lastName, Boolean enabled, String username) {

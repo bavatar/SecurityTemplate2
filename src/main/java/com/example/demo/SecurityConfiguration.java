@@ -27,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public UserDetailsService userDetailsServiceBean() throws Exception {
-        return new SSUserDetailsService(userRepository)
+        return new SSUserDetailsService(userRepository);
     }
 
     @Override
@@ -69,14 +69,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
         throws Exception{
-        auth.userDetailsService(userDetailsServiceBean())
-                .passwordEncoder(passwordEncoder());
+        // does not work
+//        auth.userDetailsService(userDetailsServiceBean())
+//                .passwordEncoder(passwordEncoder());
+
+// for use with h2 - this works
+        auth.inMemoryAuthentication()
+                .withUser("dave").password(passwordEncoder().encode("begreat")).authorities("ADMIN")
+                .and()
+                .withUser("user").password(passwordEncoder().encode("password")).authorities("USER")
+                .and()
+                .withUser("superuser").password(passwordEncoder().encode("password")).authorities("USER","ADMIN");
     }
-//        auth.inMemoryAuthentication()
-////                .withUser("dave").password(passwordEncoder().encode("begreat")).authorities("ADMIN")
-////                .and()
-////                .withUser("user").password(passwordEncoder().encode("password")).authorities("USER")
-////                .and()
-////                .withUser("superuser").password(passwordEncoder().encode("password")).authorities("USER","ADMIN");
-//    }
 }
