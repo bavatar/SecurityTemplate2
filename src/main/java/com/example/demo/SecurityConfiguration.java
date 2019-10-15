@@ -18,7 +18,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
+//    public static BCryptPasswordEncoder encoder(){
+//        return new BCryptPasswordEncoder();
+//    }
 //    @Bean
 //    public PasswordEncoder passwordEncoder() {
 //        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -51,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login").permitAll()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login").permitAll().permitAll()
+                .logoutSuccessUrl("/login").permitAll()
                 .and()
                 .httpBasic();
             http.csrf().disable();
@@ -61,6 +63,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
         throws Exception{
+//        auth.userDetailsService((userDetailsServiceBean()))
+//                .passwordEncoder(encoder());
         // for use with database does not work
 //        auth.userDetailsService(userDetailsServiceBean())
 //                .passwordEncoder(passwordEncoder());

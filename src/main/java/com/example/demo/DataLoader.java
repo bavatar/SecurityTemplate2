@@ -15,8 +15,8 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     RoleRepository roleRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+//    @Autowired
+//    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public void run(String...strings) throws Exception {
