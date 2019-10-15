@@ -27,32 +27,32 @@ public class HomeController {
     @RequestMapping("/secure")
     public String secure(Principal principal, Model model) {
         String username = principal.getName();
-        System.out.println("secure: username= " + username);
-
-        User user = userRepository.findByUsername(username);
-        System.out.println("secure: email= " + user.getEmail());
-        System.out.println("secure: Password= " + user.getPassword());
+//        System.out.println("secure: username= " + username);
+//
+//        User user = userRepository.findByUsername(username);
+//        System.out.println("secure: email= " + user.getEmail());
+//        System.out.println("secure: Password= " + user.getPassword());
         model.addAttribute("user", userRepository.findByUsername(username));
         return "secure";
     }
-
-    @RequestMapping("/admin")
-    public String admin(){
-        return "admin";
-    }
-
-    @RequestMapping("/student")
-    public String Student(){
-        return "student";
-    }
-
-    @RequestMapping("/course")
-    public String Course(){
-        return "course";
-    }
-
-    @RequestMapping("/teacher")
-    public String Teacher(){
-        return "teacher";
-    }
+//
+//    @RequestMapping("/admin")
+//    public String admin(){
+//        return "admin";
+//    }
+//
+//    @RequestMapping("/student")
+//    public String Student(){
+//        return "student";
+//    }
+//
+//    @RequestMapping("/course")
+//    public String Course(){
+//        return "course";
+//    }
+//
+//    @RequestMapping("/teacher")
+//    public String Teacher(){
+//        return "teacher";
+//    }
 }

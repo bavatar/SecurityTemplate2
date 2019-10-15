@@ -7,20 +7,25 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//    }
+
     @Autowired
-    private SSUserDetailsService userDetailsService;      //SSUserDetailsService gave an error
+    private SSUserDetailsService userDetailsService;      //SSUserDetailsService not used
 
     @Autowired
     private UserRepository userRepository;
@@ -36,22 +41,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/", "/h2-console/**")
                 .permitAll()
-//                .access("hasAnyAuthority('USER','ADMIN')")
-//                .anyRequest().authenticated()
 
                 .antMatchers("/admin")
-                .access("hasAuthority('ADMIN')")
-//                .anyRequest().authenticated()
-
-                .antMatchers("/course")
-                .access("hasAnyAuthority('USER','ADMIN')")
-//                .anyRequest().authenticated()
-
-                .antMatchers("/student")
-                .access("hasAuthority('USER')")
-//                .anyRequest().authenticated()
-
-                .antMatchers("/teacher")
                 .access("hasAuthority('ADMIN')")
                 .anyRequest().authenticated()
 
@@ -60,7 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login").permitAll()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login").permitAll()
+                .logoutSuccessUrl("/login").permitAll().permitAll()
                 .and()
                 .httpBasic();
             http.csrf().disable();
@@ -75,12 +66,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .passwordEncoder(passwordEncoder());
        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 
-// for use with h2 - this works
-        auth.inMemoryAuthentication()
-                .withUser("dave").password(passwordEncoder().encode("begreat")).authorities("ADMIN")
-                .and()
-                .withUser("user").password(passwordEncoder().encode("password")).authorities("USER")
-                .and()
-                .withUser("superuser").password(passwordEncoder().encode("password")).authorities("USER","ADMIN");
+// for use with h2 - this works in 4.4
+//        auth.inMemoryAuthentication()
+//                .withUser("dave").password(passwordEncoder().encode("begreat")).authorities("ADMIN")
+//                .and()
+//                .withUser("user").password(passwordEncoder().encode("password")).authorities("USER")
+//                .and()
+//                .withUser("superuser").password(passwordEncoder().encode("password")).authorities("USER","ADMIN");
     }
 }
