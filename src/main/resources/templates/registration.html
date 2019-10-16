@@ -4,61 +4,50 @@
 <head>
     <title>Registration</title>
 
-    <div th:fragment="header">
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-        <!--Bootstrap CSS-->
-        <link rel="stylesheet"
-              href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-              crossorigin="anonymous" />
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <th:block th:insert="base :: header"></th:block>
 
-        <!--Google Fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Belgrano|Flamenco&display=swap" rel="stylesheet">
-    </div>
 
 </head>
 <body style="background-color: seagreen">
+<div th:replace="base::navbar"></div>
 
-<div th:fragment="navbar" style="background-color: slategray">
-    <div class="row">
-        <div class="col">
-            <ul class="nav">
-                <li class="navbar-nav" id="firstItem">
-                    <p><img src = "https://res.cloudinary.com/ascension-enterprises/image/upload/v1566592764/mlj1tttewvrn9n2yyabt.gif" alt = "Logo" /></p>
-                </li>
-            </ul>
-        </div>
-        <div class="col">
-            <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a class="nav-link" th:align="top" style="color: whitesmoke" href="#">Welcome <span
-                        th:text="${#authentication.name}"></span></a>
-            </li>
-        </div>
-        <div class="col">
-            <li class="nav-item" sec:authorize="!isAuthenticated()">
-                <a class="nav-link" style="color: whitesmoke" href="/login">Login</a>
-            </li>
-        </div>
-        <div class="col">
-            <ul class="navbar-nav">
-                <li class="nav-item" sec:authorize="!isAuthenticated()">
-                    <a class="nav-link" style="color: whitesmoke" href="/register">Register</a>
-                </li>
-            </ul>
-        </div>
-        <div class="col">
-            <ul class="navbar-nav">
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" style="color: whitesmoke" href="/logout">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+<!--<div th:fragment="navbar" style="background-color: slategray">-->
+<!--    <div class="row">-->
+<!--        <div class="col">-->
+<!--            <ul class="nav">-->
+<!--                <li class="navbar-nav" id="firstItem">-->
+<!--                    <p><img src = "https://res.cloudinary.com/ascension-enterprises/image/upload/v1566592764/mlj1tttewvrn9n2yyabt.gif" alt = "Logo" /></p>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--            <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--                <a class="nav-link" th:align="top" style="color: whitesmoke" href="#">Welcome <span-->
+<!--                        th:text="${#authentication.name}"></span></a>-->
+<!--            </li>-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--            <li class="nav-item" sec:authorize="!isAuthenticated()">-->
+<!--                <a class="nav-link" style="color: whitesmoke" href="/login">Login</a>-->
+<!--            </li>-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--            <ul class="navbar-nav">-->
+<!--                <li class="nav-item" sec:authorize="!isAuthenticated()">-->
+<!--                    <a class="nav-link" style="color: whitesmoke" href="/register">Register</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--            <ul class="navbar-nav">-->
+<!--                <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--                    <a class="nav-link" style="color: whitesmoke" href="/logout">Logout</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <div class="container">
         <h4>New User Registration</h4>

@@ -22,6 +22,13 @@ public class HomeController {
         return "list";
     }
 
+    // Added for ADMIN Role in ToDo
+    @RequestMapping("/showusers")
+    public String listUsers(Model model){
+        model.addAttribute("users", userRepository.findAll());
+        return "showusers";
+    }
+
     // Added for ToDo
     @GetMapping("/add")
     public String todoForm(Model model){

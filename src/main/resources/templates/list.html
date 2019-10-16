@@ -1,64 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Add an Item</title>
-
-    <div th:fragment="header">
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-        <!--Bootstrap CSS-->
-        <link rel="stylesheet"
-              href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-              crossorigin="anonymous" />
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-        <!--Google Fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Belgrano|Flamenco&display=swap" rel="stylesheet">
-    </div>
+    <th:block th:insert="base :: header"></th:block>
 
 </head>
 <body style="background-color: seagreen">
 
-<div th:fragment="navbar" style="background-color: slategray">
-    <div class="row">
-        <div class="col">
-            <div class="nav">
-                <div class="navbar-nav" id="firstItem">
-                    <img src = "https://res.cloudinary.com/ascension-enterprises/image/upload/v1566592764/mlj1tttewvrn9n2yyabt.gif" alt = "Logo" />
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="nav-item" sec:authorize="isAuthenticated()">
-                <a class="nav-link" th:align="top" style="color: whitesmoke" href="#">Welcome <span
-                        th:text="${#authentication.name}"></span></a>
-            </div>
-        </div>
-        <div class="col">
-            <div class="nav-item" sec:authorize="!isAuthenticated()">
-                <a class="nav-link" style="color: whitesmoke" href="/login">Login</a>
-            </div>
-        </div>
-        <div class="col">
-            <ul class="navbar-nav">
-                <div class="nav-item" sec:authorize="!isAuthenticated()">
-                    <a class="nav-link" style="color: whitesmoke" href="/register">Register</a>
-                </div>
-            </ul>
-        </div>
-        <div class="col">
-            <ul class="navbar-nav">
-                <div class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" style="color: whitesmoke" href="/logout">Logout</a>
-                </div>
-            </ul>
-        </div>
-    </div>
-</div>
+<div th:replace="base::navbar"></div>
 
 <br> <br>
 <div class="container" style="background-color: lightyellow">
@@ -78,6 +29,8 @@
 
 <li sec:authorize="isAuthenticated()">
 <a href="/add">Add a Task</a><br />
+    <br>
+    <h3>List Tasks</h3>
 <table>
     <tr>
         <th>Task Name</th>

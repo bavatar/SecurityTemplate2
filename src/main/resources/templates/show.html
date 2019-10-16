@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <th:block th:insert="base :: header"></th:block>
+
 </head>
-<body>
-<a href="/">Show all courses</a><br />
-Title: <span th:text="${todo.taskName}" ></span>
-Instructor: <span th:text="${todo.dueDate}" ></span>
-Credits: <span th:text="${todo.priority}" ></span>
-<a th:href="@{/delete/{id}(id=${todo.id})}">Delete this course</a>
+<body style="background-color: seagreen">
+
+<div th:replace="base::navbar"></div>
+
+<a href="/">Show all tasks</a><br />
+Task: <span th:text="${todo.taskName}" ></span>
+Due Date: <span th:text="${todo.dueDate}" ></span>
+Priority: <span th:text="${todo.priority}" ></span>
+<a th:href="@{/delete/{id}(id=${todo.id})}">Delete this task</a>
 
 </body>
 </html>

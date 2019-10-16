@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <title>Security and Database Operations</title>
 
-    <div th:fragment="header">
-        <meta charset="UTF-8" />
+    <th:block block th:fragment="header">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
         <!--Bootstrap CSS-->
@@ -19,22 +18,23 @@
 
         <!--Google Fonts-->
         <link href="https://fonts.googleapis.com/css?family=Belgrano|Flamenco&display=swap" rel="stylesheet">
-    </div>
+    </th:block>
+<!--    <th:block th:insert="base :: header"></th:block>-->
 
 </head>
 <body style="background-color: seagreen">
 
 <div th:fragment="navbar" style="background-color: slategray">
     <div class="row">
-        <div class="col">
+        <div  class="col" style="flex-grow: 0">
             <div class="nav">
                 <div class="navbar-nav" id="firstItem">
                     <img src = "https://res.cloudinary.com/ascension-enterprises/image/upload/v1566592764/mlj1tttewvrn9n2yyabt.gif" alt = "Logo" />
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="nav-item" sec:authorize="isAuthenticated()">
+        <div class="col" sec:authorize="isAuthenticated()">
+            <div class="nav-item" >
                 <a class="nav-link" th:align="top" style="color: whitesmoke" href="#">Welcome <span
                         th:text="${#authentication.name}"></span></a>
             </div>
@@ -53,6 +53,13 @@
         </div>
         <div class="col">
             <ul class="navbar-nav">
+                <div class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
+                    <a class="nav-link" style="color: whitesmoke" href="/showusers">Show Users</a>
+                </div>
+            </ul>
+        </div>
+        <div class="col">
+            <ul class="navbar-nav">
                 <div class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" style="color: whitesmoke" href="/logout">Logout</a>
                 </div>
@@ -60,6 +67,8 @@
         </div>
     </div>
 </div>
+
+<!--<div th:replace="base :: navbar"></div>-->
 
 <!--Bootstrap JS-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
