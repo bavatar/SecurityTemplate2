@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Security and Database Operations</title>
+    <title>Add an Item</title>
 
     <div th:fragment="header">
         <meta charset="UTF-8" />
@@ -60,6 +59,43 @@
         </div>
     </div>
 </div>
+
+<br> <br>
+<div class="container" style="background-color: lightyellow">
+    <br>
+    <center>
+    <h1>Todo List</h1>
+        <br>
+    <div sec:authorize="!isAuthenticated()">
+        <b>
+        <p><a style="color: black" href="/register"><h3>Register</h3></a></p>
+        <p><a style="color: black" href="/login"><h3>Login</h3></a></p>
+        </b>
+        <br>
+    </div>
+    </center>
+</div>
+
+<li sec:authorize="isAuthenticated()">
+<a href="/add">Add a Task</a><br />
+<table>
+    <tr>
+        <th>Task Name</th>
+        <th>Due Date</th>
+        <th>Priority</th>
+    </tr>
+    <tr th:each="todo: ${todos}">
+        <td th:text="${todo.taskName}"></td>
+        <td th:text="${todo.dueDate}"></td>
+        <td th:text="${todo.priority}"></td>
+        <td>
+            <a th:href="@{/update/{id}(id=${todo.id})}">Update</a>
+            <a th:href="@{/detail/{id}(id=${todo.id})}">Details</a>
+            <a th:href="@{/delete/{id}(id=${todo.id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+</li>
 
 <!--Bootstrap JS-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

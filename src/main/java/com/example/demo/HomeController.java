@@ -4,16 +4,62 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
 public class HomeController {
+    // Added for ToDo
+    @Autowired
+    TodoRepository todoRepository;
+
+    // Added for ToDo
+    @RequestMapping("/")
+    public String listTasks(Model model){
+        model.addAttribute("todos", todoRepository.findAll());
+        return "list";
+    }
+
+    // Added for ToDo
+    @GetMapping("/add")
+    public String todoForm(Model model){
+        model.addAttribute("todo", new Todo());
+        return "todoform";
+    }
+
+    // Added for ToDo
+    @PostMapping("/process")
+    public String processForm(@Valid Todo todo, BindingResult result){
+        if (result.hasErrors()){
+            return "todoform";
+        }
+        todoRepository.save(todo);
+        return "redirect:/";
+    }
+
+    // Added for ToDo
+    @RequestMapping("/detail/{id}")
+    public String showCourse(@PathVariable("id") long id, Model model){
+        model.addAttribute("todo", todoRepository.findById(id).get());
+        return "show";
+    }
+
+    // Added for ToDo
+    @RequestMapping("/update/{id}")
+    public String updateCourse(@PathVariable("id") long id, Model model){
+        model.addAttribute("todo", todoRepository.findById(id).get());
+        return "todoform";
+    }
+
+    // Added for ToDo
+    @RequestMapping("/delete/{id}")
+    public String delCourse(@PathVariable("id") long id){
+        todoRepository.deleteById(id);
+        return "redirect:/";
+    }
+
     // Added for 4.05
     @Autowired
     UserRepository userRepository;
@@ -47,10 +93,10 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping("/")
-    public String index(){
-        return "index";
-    }
+//    @RequestMapping("/")
+//    public String index(){
+//        return "index";
+//    }
 
     @RequestMapping("/login")
     public String login(){
