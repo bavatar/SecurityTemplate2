@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -55,6 +56,15 @@ public class HomeController {
     public String listUsers(Model model){
         model.addAttribute("users", userRepository.findAll());
         return "showusers";
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        // Alternative to DataLoader
+//        if (roleRepository.findAll()== null){
+//            roleRepository.save(new Role("USER"));
+//            roleRepository.save(new Role("ADMIN"));
+//        }
     }
 
     // Added for ToDo
