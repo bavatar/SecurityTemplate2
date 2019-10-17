@@ -53,6 +53,12 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void saveSupervisor(User user) {
+        user.setRoles(Arrays.asList(roleRepository.findByRole("SUPERVISOR")));
+        user.setEnabled(true);
+        userRepository.save(user);
+    }
+
     // returns currently logged in user. Not included in 4.06
     public User getUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

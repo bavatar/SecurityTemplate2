@@ -49,26 +49,46 @@ public class HomeController {
     }
 
     @PostMapping("/processprofile")
-    public String processProfile(@ModelAttribute User user) {
-//        LocalDate tempDate = LocalDate.now();
-        Date tempDate = new Date();
-        //System.out.println("HomeController: tempDate: " + tempDate.toString());
-//        job.setPostedDate(tempDate);
-//        jobRepository.save(job);
-        return "redirect:/";
+    public String processProfile(@Valid
+              @ModelAttribute("user") User user, BindingResult result,
+              Model model){
+        model.addAttribute("user", user);
+
+        if(result.hasErrors()){
+            return "updateprofile";
+        }
+        else {
+            if (user.getRoles().toString().contains("USER")){
+                userService.saveUser(user);
+            }
+            else if (user.getRoles().toString().contains("ADMIN")){
+                userService.saveAdmin(user);
+            } if (user.getRoles().toString().contains("SUPERVISOR")){
+                userService.saveSupervisor(user);
+            }
+            model.addAttribute("message", "User Account Updated");
+        }
+        //return "redirect:/";
+        return "showusers";
     }
-//    @PostMapping("/process_car")
-//    public String processCarForm(@Valid Car car, BindingResult result){
-//        if (result.hasErrors()){
-//            return "carform";
+
+//    @PostMapping("/register")
+//    public String processRegistrationPage(@Valid
+//              @ModelAttribute("user") User user, BindingResult result,
+//              Model model){
+//        model.addAttribute("user", user);
+//
+//        if(result.hasErrors()){
+//            return "registration";
 //        }
-//        System.out.println("HomeController:process_car: save car: " + car.getManufacturer() + " " + car.getModel());
-//        carRepository.save(car);
-//        return "redirect:/";
-////        return "redirect:/carlist";
+//        else {
+//            userService.saveUser(user);
+//            model.addAttribute("message", "User Account Created");
+//        }
+//        //return "redirect:/";
+//        return "list";
+////        return "index";
 //    }
-
-
 
     // Added for ToDo
     @RequestMapping("/detail/{id}")
@@ -84,12 +104,31 @@ public class HomeController {
         return "todoform";
     }
 
-    @RequestMapping("/update_profile/{id}")
-    public String updateProfile(@PathVariable("id") long id, Model model){
-        model.addAttribute("user", userRepository.findById(id).get());
-        model.addAttribute("roles", roleRepository.findAll());
-        return "userprofile";
-    }
+    // see process_profile  use that
+//    @RequestMapping("/update_profile/{id}")
+//    public String updateProfile(@PathVariable("id") long id, Model model){
+//        model.addAttribute("user", userRepository.findById(id).get());
+//        model.addAttribute("roles", roleRepository.findAll());
+//        return "userprofile";
+//    }
+
+//    @PostMapping("/register")
+//    public String processRegistrationPage(@Valid
+//                  @ModelAttribute("user") User user, BindingResult result,
+//                  Model model){
+//        model.addAttribute("user", user);
+//
+//        if(result.hasErrors()){
+//            return "registration";
+//        }
+//        else {
+//            userService.saveUser(user);
+//            model.addAttribute("message", "User Account Created");
+//        }
+//        //return "redirect:/";
+//        return "list";
+////        return "index";
+//    }
 
 
     // Added for ToDo
