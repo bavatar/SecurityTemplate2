@@ -104,13 +104,14 @@ public class HomeController {
         return "todoform";
     }
 
-    // see process_profile  use that
-//    @RequestMapping("/update_profile/{id}")
-//    public String updateProfile(@PathVariable("id") long id, Model model){
-//        model.addAttribute("user", userRepository.findById(id).get());
-//        model.addAttribute("roles", roleRepository.findAll());
-//        return "userprofile";
-//    }
+    @RequestMapping("/update_profile/{id}")
+    public String updateProfile(@PathVariable("id") long id, Model model){
+        model.addAttribute("user", userRepository.findById(id).get());
+        model.addAttribute("roles", roleRepository.findAll());
+
+
+        return "userprofile";
+    }
 
 //    @PostMapping("/register")
 //    public String processRegistrationPage(@Valid
