@@ -37,6 +37,51 @@
 
 <div class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
     <h2>Admin Profile Update</h2>
+
+    <div class="container" style="background-color: azure">
+        <center><h2>Update a Profile</h2></center>
+        <form action="#" th:action="@{/process_profile}" th:object="${user}" method="post" enctype="multipart/form-data">
+            <p>Role:<select name="role" th:field="*{roles}">
+<!--                ArrayList<Role> rollArray = roleRepository.getAll();-->
+<!--                <td th:each="role: ${user.roles}">-->
+<!--                    <span th:text="${role.role}"></span>-->
+<!--                </td>-->
+                <option th:each="role : ${roles}"
+                        th:value="${role.id}"
+                        th:text="${role.role}"></option>
+            </select>
+            </p>
+            <input type="hidden" th:field="*{id}"/>
+            <p>Email:<input type="text" th:field="*{email}"/><br />
+                <span th:if="${#fields.hasErrors('email')}"
+                      th:errors="*{email}"></span><br />
+
+                Password:<input type="text" th:field="*{password}"/><br />
+                <span th:if="${#fields.hasErrors('password')}"
+                      th:errors="*{password}"></span><br />
+
+                First Name:<input type="text" th:field="*{firstName}"/><br />
+                <span th:if="${#fields.hasErrors('firstName')}"
+                      th:errors="*{firstName}"></span><br />
+
+                Last Name:<input type="text" th:field="*{lastName}"/><br />
+                <span th:if="${#fields.hasErrors('lastName')}"
+                      th:errors="*{lastName}"></span><br />
+
+                Enabled:<input type="checkbox" th:field="*{enabled}"/><br />
+                <span th:if="${#fields.hasErrors('enabled')}"
+                      th:errors="*{enabled}"></span><br />
+
+                User Name:<input type="text" th:field="*{username}"/><br />
+                <span th:if="${#fields.hasErrors('username')}"
+                      th:errors="*{username}"></span><br />
+
+                <button type="submit">Submit</button>
+        </form>
+    </div>
+
+
+
     <br><br>
 
 </div>
