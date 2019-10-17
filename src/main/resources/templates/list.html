@@ -3,19 +3,37 @@
       xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Add an Item</title>
+    <title>List of Tasks</title>
+
     <th:block th:insert="base :: header"></th:block>
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
 
 </head>
 <body style="background-color: seagreen">
 
 <div th:replace="base::navbar"></div>
-
-<br> <br>
+<br>
 <div class="container" style="background-color: lightyellow">
     <br>
     <center>
-    <h1>Todo List</h1>
+    <h2>ToDo List</h2>
         <br>
     <div sec:authorize="!isAuthenticated()">
         <b>
@@ -26,29 +44,44 @@
     </div>
     </center>
 </div>
+<br>
 
-<li sec:authorize="isAuthenticated()">
-<a href="/add">Add a Task</a><br />
+<div class="nav-item"  sec:authorize="isAuthenticated()">
     <br>
-    <h3>List Tasks</h3>
-<table>
-    <tr>
-        <th>Task Name</th>
-        <th>Due Date</th>
-        <th>Priority</th>
-    </tr>
-    <tr th:each="todo: ${todos}">
-        <td th:text="${todo.taskName}"></td>
-        <td th:text="${todo.dueDate}"></td>
-        <td th:text="${todo.priority}"></td>
-        <td>
-            <a th:href="@{/update/{id}(id=${todo.id})}">Update</a>
-            <a th:href="@{/detail/{id}(id=${todo.id})}">Details</a>
-            <a th:href="@{/delete/{id}(id=${todo.id})}">Delete</a>
-        </td>
-    </tr>
-</table>
-</li>
+    <div class="container">
+        <b><a style="color: whitesmoke" href="/add">Add a Task</a></b>
+        <br>
+        <br>
+        <center><h3>List of Tasks</h3></center>
+        <table style="border: slateblue">
+            <tr>
+                <th>Task Name</th>
+                <th>Due Date</th>
+                <th>Priority</th>
+                <th>Actions</th>
+            </tr>
+            <tr th:each="todo: ${todos}">
+                <td th:text="${todo.taskName}"></td>
+                <td th:text="${todo.dueDate}"></td>
+                <td th:text="${todo.priority}"></td>
+                <td>
+                    <b>
+                    <a style="color: black" th:href="@{/update/{id}(id=${todo.id})}">Update</a>
+                    <a style="color: black" th:href="@{/detail/{id}(id=${todo.id})}">Details</a>
+                    <a style="color: black" th:href="@{/delete/{id}(id=${todo.id})}">Delete</a>
+                    </b>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 <!--Bootstrap JS-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

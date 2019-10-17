@@ -16,6 +16,9 @@
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<!--        My Stylesheet-->
+<!--        <link rel="stylesheet" href="/css/myStyle.css">-->
+
         <!--Google Fonts-->
         <link href="https://fonts.googleapis.com/css?family=Belgrano|Flamenco&display=swap" rel="stylesheet">
     </th:block>
@@ -35,7 +38,7 @@
         </div>
         <div class="col" sec:authorize="isAuthenticated()">
             <div class="nav-item" >
-                <a class="nav-link" th:align="top" style="color: whitesmoke" href="#">Welcome <span
+                <a class="nav-link" th:align="top" style="color: whitesmoke" href="/">Welcome <span
                         th:text="${#authentication.name}"></span></a>
             </div>
         </div>

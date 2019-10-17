@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Date;
 
 @Controller
 public class HomeController {
@@ -46,6 +48,28 @@ public class HomeController {
         return "redirect:/";
     }
 
+    @PostMapping("/processprofile")
+    public String processProfile(@ModelAttribute User user) {
+//        LocalDate tempDate = LocalDate.now();
+        Date tempDate = new Date();
+        //System.out.println("HomeController: tempDate: " + tempDate.toString());
+//        job.setPostedDate(tempDate);
+//        jobRepository.save(job);
+        return "redirect:/";
+    }
+//    @PostMapping("/process_car")
+//    public String processCarForm(@Valid Car car, BindingResult result){
+//        if (result.hasErrors()){
+//            return "carform";
+//        }
+//        System.out.println("HomeController:process_car: save car: " + car.getManufacturer() + " " + car.getModel());
+//        carRepository.save(car);
+//        return "redirect:/";
+////        return "redirect:/carlist";
+//    }
+
+
+
     // Added for ToDo
     @RequestMapping("/detail/{id}")
     public String showCourse(@PathVariable("id") long id, Model model){
@@ -59,6 +83,14 @@ public class HomeController {
         model.addAttribute("todo", todoRepository.findById(id).get());
         return "todoform";
     }
+
+    @RequestMapping("/update_profile/{id}")
+    public String updateProfile(@PathVariable("id") long id, Model model){
+        model.addAttribute("user", userRepository.findById(id).get());
+        model.addAttribute("roles", roleRepository.findAll());
+        return "userprofile";
+    }
+
 
     // Added for ToDo
     @RequestMapping("/delete/{id}")
@@ -97,7 +129,8 @@ public class HomeController {
             model.addAttribute("message", "User Account Created");
         }
         //return "redirect:/";
-        return "index";
+        return "list";
+//        return "index";
     }
 
 //    @RequestMapping("/")

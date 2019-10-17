@@ -6,28 +6,65 @@
 
     <th:block th:insert="base :: header"></th:block>
 
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+
 </head>
 <body style="background-color: seagreen">
+
 <div th:replace="base::navbar"></div>
+<br><br>
 
-<h1>Todo Form</h1>
+<div style="color: whitesmoke" class="container">
+    <h2>ToDo Form</h2>
+    <br><br>
+    <form action="#" th:action="@{/process}" th:object="${todo}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        Task: <input type="text" th:field="*{taskName}" />
+        <span th:if="${#fields.hasErrors('taskName')}"
+              th:errors="*{taskName}"></span><br />
 
-<form action="#" th:action="@{/process}" th:object="${todo}" method="post">
-    <input type="hidden" th:field="*{id}" />
-    Task: <input type="text" th:field="*{taskName}" />
-    <span th:if="${#fields.hasErrors('taskName')}"
-          th:errors="*{taskName}"></span><br />
+        Due Date: <input type="text" th:field="*{dueDate}" />
+        <span th:if="${#fields.hasErrors('dueDate')}"
+              th:errors="*{dueDate}"></span><br />
 
-    Due Date: <input type="text" th:field="*{dueDate}" />
-    <span th:if="${#fields.hasErrors('dueDate')}"
-          th:errors="*{dueDate}"></span><br />
+        Priority: <input type="text" th:field="*{priority}" />
+        <span th:if="${#fields.hasErrors('priority')}"
+              th:errors="*{priority}"></span><br />
+        <br />
+        <input type="submit" value="Submit" />
+    </form>
+</div>
 
-    Priority: <input type="text" th:field="*{priority}" />
-    <span th:if="${#fields.hasErrors('priority')}"
-          th:errors="*{priority}"></span><br />
-    <br />
-    <input type="submit" value="Submit" />
-</form>
+<!--Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+<div class="container" th:fragment="footnote">
+    <footer>
+        <center>
+            <div class="footer-main-div" style="alignment: center">
+                <p style="color:greenyellow; ">&copy; Copyright 2019 John Anderjaska.</p>
+            </div>
+        </center>
+    </footer>
+    </footer>
+</div>
 </body>
 </html>
